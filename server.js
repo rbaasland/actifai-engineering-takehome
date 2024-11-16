@@ -46,6 +46,19 @@ async function start() {
     }
   });
 
+    // Total sales / average sales over a period of time by group Endpoint
+    app.get('/metrics/sales/groups', async (req, res) => {
+      const date = new Date();
+      const startDate = req.query.startDate;
+      const endDate = req.query.endDate;
+      try {
+        const groupSales = await salesMetrics.getGroupSalesByMonth(startDate, endDate);
+        res.send(groupSales);
+      } catch (error) {
+        res.status(500).send('Internal Server Error');
+      }
+    });
+
   app.listen(PORT, HOST);
   console.log(`Server is running on http://${HOST}:${PORT}`);
 }
