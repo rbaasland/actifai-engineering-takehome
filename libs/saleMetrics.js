@@ -1,6 +1,7 @@
 'use strict';
 
 const database = require('./database');
+const dateHelper = require('./dateHelper');
 
 /**
  * Get total sales by day over a time period
@@ -8,11 +9,8 @@ const database = require('./database');
  * @param {string} endDate The second number to add.
  * @return {object} Total sales by day
  */    
-const getSalesByDate = async function(startDate, endDate ) {
-    if (endDate < startDate) {
-        throw new Error('Invalid time period');
-    }
-    
+const getSalesByDate = async function(start, end ) {
+    const { startDate, endDate } = dateHelper.getSalesDates(start, end);
     const queryText = `
         SELECT 
             to_char(date, 'yyyy-mm-dd') as date,
