@@ -20,44 +20,56 @@ async function start() {
     res.send('Hello World');
   });
 
-  // Total sales over a period of time Endpoint
+  // Sales Endpoint
   app.get('/metrics/sales', async (req, res) => {
-    const date = new Date();
     const startDate = req.query.startDate;
     const endDate = req.query.endDate;
+
     try {
       const sales = await salesMetrics.getSalesByDate(startDate, endDate);
       res.send(sales);
     } catch (error) {
-      res.status(500).send('Internal Server Error');
+      if (error.message === 'Invalid Date Format' || error.message === 'Invalid time period') {
+        res.status(400).send(error.message);
+      } else {
+        res.status(500).send('Internal Server Error');
+      }
     }
   });
 
-  // Total sales / average sales over a period of time by user Endpoint
+  // User Sales Endpoint
   app.get('/metrics/sales/users', async (req, res) => {
-    const date = new Date();
     const startDate = req.query.startDate;
     const endDate = req.query.endDate;
+
     try {
       const userSales = await salesMetrics.getUserSalesByMonth(startDate, endDate);
       res.send(userSales);
     } catch (error) {
-      res.status(500).send('Internal Server Error');
+      if (error.message === 'Invalid Date Format' || error.message === 'Invalid time period') {
+        res.status(400).send(error.message);
+      } else {
+        res.status(500).send('Internal Server Error');
+      }
     }
   });
 
-    // Total sales / average sales over a period of time by group Endpoint
-    app.get('/metrics/sales/groups', async (req, res) => {
-      const date = new Date();
-      const startDate = req.query.startDate;
-      const endDate = req.query.endDate;
-      try {
-        const groupSales = await salesMetrics.getGroupSalesByMonth(startDate, endDate);
-        res.send(groupSales);
-      } catch (error) {
+  // Group Sales Endpoint
+  app.get('/metrics/sales/groups', async (req, res) => {
+    const startDate = req.query.startDate;
+    const endDate = req.query.endDate;
+
+    try {
+      const groupSales = await salesMetrics.getGroupSalesByMonth(startDate, endDate);
+      res.send(groupSales);
+    } catch (error) {
+      if (error.message === 'Invalid Date Format' || error.message === 'Invalid time period') {
+        res.status(400).send(error.message);
+      } else {
         res.status(500).send('Internal Server Error');
       }
-    });
+    }
+  });
 
   app.listen(PORT, HOST);
   console.log(`Server is running on http://${HOST}:${PORT}`);
