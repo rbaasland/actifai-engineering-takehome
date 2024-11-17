@@ -34,10 +34,7 @@ const getSalesByDate = async function(start, end ) {
  * @return {object}
  */    
 const getUserSalesByMonth = async function(startDate, endDate ) {
-  if (endDate < startDate) {
-    throw new Error('Invalid time period');
-  }
-
+  const { startDate, endDate } = dateHelper.getSalesDates(start, end);
   const queryText = `
     SELECT
       s.user_id,
@@ -69,10 +66,7 @@ const getUserSalesByMonth = async function(startDate, endDate ) {
  * @return {object}
  */    
 const getGroupSalesByMonth = async function(startDate, endDate ) {
-  if (endDate < startDate) {
-    throw new Error('Invalid time period');
-  }
-
+  const { startDate, endDate } = dateHelper.getSalesDates(start, end);
   const queryText = `
     SELECT
       ug.group_id,
