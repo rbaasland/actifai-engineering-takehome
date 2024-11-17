@@ -43,7 +43,7 @@ const getUserSalesByMonth = async function(startDate, endDate ) {
       sum(s.amount) as total_sales,
       ROUND(AVG(s.amount), 2) as average_sale
     FROM sales s
-    LEFT JOIN users u ON s.user_id = u.id
+    INNER JOIN users u ON s.user_id = u.id
     WHERE
       s.date >= $1 and s.date <= $2
     GROUP BY
