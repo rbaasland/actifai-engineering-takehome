@@ -4997,3 +4997,6 @@ INSERT INTO sales (id, user_id, amount, date) VALUES (4996, 6, 12165, '2021-10-1
 INSERT INTO sales (id, user_id, amount, date) VALUES (4997, 4, 33359, '2021-11-21');
 INSERT INTO sales (id, user_id, amount, date) VALUES (4998, 3, 28066, '2021-12-02');
 INSERT INTO sales (id, user_id, amount, date) VALUES (4999, 14, 2457, '2021-08-06');
+INSERT INTO sales (id, user_id, amount, date) VALUES (5000, 1, 2457, '2024-11-01');
+INSERT INTO sales (id, user_id, amount, date) VALUES (5001, 1, 5000, '2024-11-02');
+INSERT INTO sales (id, user_id, amount, date) VALUES (5002, 1, 2540, '2024-11-03');
